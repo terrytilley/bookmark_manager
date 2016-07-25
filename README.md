@@ -19,7 +19,7 @@ I want to view links in descending chronological order
 |Objects| Messages|
 |------|:------|
 |User |   |
-|Links| ordered_list|
+|Link | ordered_list|
 
 ```
 As a User
