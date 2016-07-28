@@ -10,13 +10,17 @@
   </head>
   <body>
     <div class="container">
-      <% if current_user %>
-        Welcome, <%= current_user.email %>
-      <% end %>
+      <div class="col-sm-6 col-sm-offset-3">
+        <% if current_user %>
+          <div class="alert alert-info" role="alert">Welcome, <%= current_user.email %></div>
+        <% end %>
+      </div>
       <!-- this calls this layout on all other pages -->
-      <% if flash[:notice] %>
-        <div id="notice" class="alert alert-danger" role="alert"><%= flash[:notice] %></div>
-      <% end %>
+      <div class="col-sm-6 col-sm-offset-3">
+        <% if flash[:notice] %>
+          <div id="notice" class="alert alert-danger" role="alert"><%= flash[:notice] %></div>
+        <% end %>
+      </div>
       <%= yield %>
     </div>
   </body>
