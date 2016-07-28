@@ -8,7 +8,7 @@
           <a href="<%= link.url %>" target="_blank"><%= link.title %></a>
         </h4>
         <p class="list-group-item-text">
-          <b>Tags:</b> <%= link.tags.map(&:name).join(' ') %>
+          <b>Tags:</b> <%= link.tags.map(&:name).join(', ') %>
         </p>
       </li>
     <% end %>
