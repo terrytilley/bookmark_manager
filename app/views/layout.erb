@@ -4,40 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BookVault bookmark manager</title>
-    <!-- Bootstrap CSS -->
+    <title>Bookmark Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
-  <body>
 
+  <body>
     <div class="container">
-      <div class="col-sm-6 col-sm-offset-3">
-        <% if current_user %>
-          Welcome, <%= current_user.email %>
-          <form method='post' action='/sessions'>
-            <input type='hidden' name='_method' value='delete'>
-            <input type='submit' value='Sign out'>
-          </form>
-        <% end %>
-      </div>
-      <!-- this calls this layout on all other pages -->
-      <div class="col-sm-6 col-sm-offset-3">
-        <% if flash[:errors] && !flash[:errors].empty? %>
-          <!-- Please refer to the following erros below: -->
-          <div id="notice" class="alert alert-danger" role="alert">
-            <ul id="errors">
-              <% flash[:errors].each do |error| %>
-                <li><%= error %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-        <% if flash[:notice] %>
-          <div id='notice'>
-            <%= flash[:notice] %>
-          </div>
-        <% end %>
-      </div>
+      <%= partial :welcome %>
+      <%= partial :flash %>
       <%= yield %>
     </div>
   </body>
