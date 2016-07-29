@@ -9,16 +9,33 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
+
     <div class="container">
       <div class="col-sm-6 col-sm-offset-3">
         <% if current_user %>
-          <div class="alert alert-info" role="alert">Welcome, <%= current_user.email %></div>
+          Welcome, <%= current_user.email %>
+          <form method='post' action='/sessions'>
+            <input type='hidden' name='_method' value='delete'>
+            <input type='submit' value='Sign out'>
+          </form>
         <% end %>
       </div>
       <!-- this calls this layout on all other pages -->
       <div class="col-sm-6 col-sm-offset-3">
+        <% if flash[:errors] && !flash[:errors].empty? %>
+          <!-- Please refer to the following erros below: -->
+          <div id="notice" class="alert alert-danger" role="alert">
+            <ul id="errors">
+              <% flash[:errors].each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <% if flash[:notice] %>
-          <div id="notice" class="alert alert-danger" role="alert"><%= flash[:notice] %></div>
+          <div id='notice'>
+            <%= flash[:notice] %>
+          </div>
         <% end %>
       </div>
       <%= yield %>

@@ -5,7 +5,7 @@ require 'sinatra/flash'
 require_relative 'data_mapper_setup.rb'
 
 class Bookmarks < Sinatra::Base
-
+  use Rack::MethodOverride
   register Sinatra::Flash
 
   enable :sessions
@@ -51,11 +51,32 @@ class Bookmarks < Sinatra::Base
                 password_confirmation: params[:password_confirmation])
     if @user.save ##save returns true/false depending on whether the model is successfully saved to the database
       session[:user_id] = @user.id
-      redirect '/links'
+      redirect '/'
     else
-      flash.now[:notice] = "Password and confirmation password don't match"
+      flash.now[:errors] = @user.errors.full_messages
       erb :'users/new'
     end
+  end
+
+  get '/sessions/new' do
+    erb :'sessions/new'
+  end
+
+  post '/sessions' do
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect '/links'
+    else
+      flash.now[:errors] = ['The email or password is incorrect']
+      erb :'sessions/new'
+    end
+  end
+
+  delete '/sessions' do
+    session[:user_id] = nil
+    flash.keep[:notice] = 'goodbye!'
+    redirect to '/links'
   end
 
   helpers do
